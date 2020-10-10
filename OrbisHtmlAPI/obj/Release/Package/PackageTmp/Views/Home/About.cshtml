@@ -1,0 +1,142 @@
+﻿@{
+    ViewBag.Title = "About";
+}
+<link href="~/Content/NewBookingSystem/css/all.css" rel="stylesheet" />
+<link href="~/Content/NewBookingSystem/css/stylein.css" rel="stylesheet" />
+<h2>@ViewBag.Title.</h2>
+<h3>@ViewBag.Message</h3>
+
+<p>Use this area to provide additional information.</p>
+<button onclick="SaveForm()" >
+    Submit
+</button>
+<div id="divHeader">
+
+</div>
+<hr />
+<div id="divFooter">
+
+</div>
+<script src="~/Scripts/jquery-3.4.1.js"></script>
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script src="~/Content/WP/JS/MenuHtml.js"></script>
+<script type="text/javascript">
+    $(function () {
+        //LoadFooterHtml();
+        //LoadMenuHeaderHtml();
+        checkCookie(39058, 'GLF', 1176);
+    });
+
+    function createCookie(cookieName, cookieValue, daysToExpire) {
+        var date = new Date();
+        date.setTime(date.getTime() + (daysToExpire * 24 * 60 * 60 * 1000));
+        document.cookie = cookieName + "=" + cookieValue + "; expires=" + date.toGMTString();
+    }
+
+    function accessCookie(cookieName) {
+        var name = cookieName + "=";
+        var allCookieArray = document.cookie.split(';');
+        for (var i = 0; i < allCookieArray.length; i++) {
+            var temp = allCookieArray[i].trim();
+            if (temp.indexOf(name) == 0)
+                return temp.substring(name.length, temp.length);
+        }
+        return "";
+    }
+
+    function checkCookie(userid, username, academyid) {
+        var cookieName = userid + '_' + username + '_' + academyid;
+        var user = accessCookie(cookieName);
+        var num = 1;
+        if (user != "" && user != undefined) {
+            alert("Welcome Back " + user + "!!!");
+        }
+        else {
+            //user = prompt("Please enter your name");
+            //num = prompt("How many days you want to store your name on your computer?");
+            var cookieValue = cookieName;
+            if (cookieName != "" && cookieName != null && cookieName != undefined) {
+                createCookie(cookieName, cookieValue, num);
+            }
+        }
+    }
+
+     /** sends a request to the specified url from a form. this will change the window location.
+     * param {string} path the path to send the post request to
+     * param {object} params the paramiters to add to the url
+     * param {string} [method=post] the method to use on the form
+     **/
+
+    //post('/contact/', {name: 'Johnny Bravo'});
+    function SaveForm() {
+        let path = 'https://dev.jjtestsite.us/BuddyBossGLF/login-processing/';
+        let Rurl = window.location.href;
+        alert(Rurl);
+        let params = {
+            ReturnUrl: Rurl,
+            academyId: 1176,
+            userid: 30958,
+            first_name: 'Test',
+            last_name: 'User',
+            username: 'TestUser',
+            email: 'testuser@glf.com',
+            Password: 'biology1'
+        };
+        post(path, params);
+    }
+    function post(path, params, method='POST') {
+        debugger;
+        $.ajax({
+            url: path, //'/Home/TestPost/',
+            type: method,
+            data: params,
+            success: function (result) {
+                alert("Success:-");
+                alert(result);
+                console(result);
+            },
+            error: function (xhr, status, error) {
+                alert(error);
+                console("123");
+            }
+        });
+        // The rest of this code assumes you are not using a library.
+        // It can be made less wordy if you use one.
+        //const form = document.createElement('form');
+        //form.method = method;
+        //form.action = path;
+        //form.OnSuccess = "formSuccess";
+        //for (const key in params) {
+        //    if (params.hasOwnProperty(key)) {
+        //        const hiddenField = document.createElement('input');
+        //        hiddenField.type = 'hidden';
+        //        hiddenField.name = key;
+        //        hiddenField.value = params[key];
+
+        //        form.appendChild(hiddenField);
+        //    }
+        //}
+
+        //document.body.appendChild(form);
+        //form.submit();
+
+        //$.ajax({
+        //    url: '/Home/About/',
+        //    type: "POST",
+        //    data: params,
+        //    success: function (result) {
+        //        alert(result);
+        //        console(result);
+        //    },
+        //    error: function (xhr, status, error) {
+        //        alert(error);
+        //        console("123");
+        //    }
+        //});
+    }
+
+    function formSuccess(result) {
+        alert("formSuccess" + result);
+        debugger;
+    }
+</script>

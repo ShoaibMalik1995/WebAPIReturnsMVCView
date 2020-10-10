@@ -1,0 +1,352 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{0C758821-68F3-4B51-81EA-CAA27E85D8DA}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>OrbisHtmlAPI</RootNamespace>
+    <AssemblyName>OrbisHtmlAPI</AssemblyName>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <Use64BitIISExpress />
+    <IISExpressSSLPort>44303</IISExpressSSLPort>
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DataAccess, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\DataAccess.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web.Cors, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Cors.5.2.7\lib\net45\System.Web.Cors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Http.Cors, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Cors.5.2.7\lib\net45\System.Web.Http.Cors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.7\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.7\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="WebGrease">
+      <Private>True</Private>
+      <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
+    </Reference>
+    <Reference Include="Antlr3.Runtime">
+      <Private>True</Private>
+      <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.Formatting">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.7\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.7\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.7\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\HtmlContentController.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap-theme.min.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Images\Academy\08bf755b6f2844f0bae133125809ceee.jpg" />
+    <Content Include="Content\Images\loader-128x\Preloader_1.gif" />
+    <Content Include="Content\Images\loader-128x\Preloader_2.gif" />
+    <Content Include="Content\Images\loader-128x\Preloader_3.gif" />
+    <Content Include="Content\Images\loader-128x\Preloader_4.gif" />
+    <Content Include="Content\Images\loader-128x\Preloader_5.gif" />
+    <Content Include="Content\Images\loader-128x\Preloader_6.gif" />
+    <Content Include="Content\Images\loader-128x\Preloader_7.gif" />
+    <Content Include="Content\NewBookingSystem\css\all.css" />
+    <Content Include="Content\NewBookingSystem\css\bootstrap.min.css" />
+    <Content Include="Content\NewBookingSystem\css\datepicker.css" />
+    <Content Include="Content\NewBookingSystem\css\Gijgo.min.css" />
+    <Content Include="Content\NewBookingSystem\css\navbar.css" />
+    <Content Include="Content\NewBookingSystem\carousel\owl.carousel.min.css" />
+    <Content Include="Content\NewBookingSystem\css\stylein.css" />
+    <Content Include="Content\NewBookingSystem\images\angle-right-solid.svg" />
+    <Content Include="Content\NewBookingSystem\images\bellogo.png" />
+    <Content Include="Content\NewBookingSystem\images\bgimg1.jpg" />
+    <Content Include="Content\NewBookingSystem\images\bgimg12.jpg" />
+    <Content Include="Content\NewBookingSystem\images\btnbg.png" />
+    <Content Include="Content\NewBookingSystem\images\coach.png" />
+    <Content Include="Content\NewBookingSystem\images\completegolfer.png" />
+    <Content Include="Content\NewBookingSystem\images\copy.png" />
+    <Content Include="Content\NewBookingSystem\images\crownhonda.png" />
+    <Content Include="Content\NewBookingSystem\images\downar.png" />
+    <Content Include="Content\NewBookingSystem\images\fdglogo.png" />
+    <Content Include="Content\NewBookingSystem\images\fdglogofooter.png" />
+    <Content Include="Content\NewBookingSystem\images\glflocker.jpg" />
+    <Content Include="Content\NewBookingSystem\images\glflocker1.jpg" />
+    <Content Include="Content\NewBookingSystem\images\GolfBall.png" />
+    <Content Include="Content\NewBookingSystem\images\graphimg.png" />
+    <Content Include="Content\NewBookingSystem\images\headerbg.jpg" />
+    <Content Include="Content\NewBookingSystem\images\icons\Business-Leave-icon.png" />
+    <Content Include="Content\NewBookingSystem\images\icons\card_d-b.png" />
+    <Content Include="Content\NewBookingSystem\images\icons\card_d.png" />
+    <Content Include="Content\NewBookingSystem\images\icons\card_d2.png" />
+    <Content Include="Content\NewBookingSystem\images\icons\check-mark-icon-2.jpg" />
+    <Content Include="Content\NewBookingSystem\images\icons\CheckMark.png" />
+    <Content Include="Content\NewBookingSystem\images\icons\Clock.png" />
+    <Content Include="Content\NewBookingSystem\images\icons\Coach.png" />
+    <Content Include="Content\NewBookingSystem\images\icons\DriverTee.png" />
+    <Content Include="Content\NewBookingSystem\images\icons\Duration.png" />
+    <Content Include="Content\NewBookingSystem\images\icons\edit.png" />
+    <Content Include="Content\NewBookingSystem\images\icons\email_checkout.png" />
+    <Content Include="Content\NewBookingSystem\images\icons\eye-symbols-as-show-hide-visible-invisible-public-vector-22590948.jpg" />
+    <Content Include="Content\NewBookingSystem\images\icons\FixLater.png" />
+    <Content Include="Content\NewBookingSystem\images\icons\GolfBall.png" />
+    <Content Include="Content\NewBookingSystem\images\icons\GolfClubsCross.png" />
+    <Content Include="Content\NewBookingSystem\images\icons\Golfer.png" />
+    <Content Include="Content\NewBookingSystem\images\icons\Green.png" />
+    <Content Include="Content\NewBookingSystem\images\icons\IC_GolfClubTee.png" />
+    <Content Include="Content\NewBookingSystem\images\icons\IC_GolfClubX.png" />
+    <Content Include="Content\NewBookingSystem\images\icons\IC_Golfer.png" />
+    <Content Include="Content\NewBookingSystem\images\icons\IC_GolfStance.png" />
+    <Content Include="Content\NewBookingSystem\images\icons\IC_Green.png" />
+    <Content Include="Content\NewBookingSystem\images\icons\Move.png" />
+    <Content Include="Content\NewBookingSystem\images\icons\notes.png" />
+    <Content Include="Content\NewBookingSystem\images\icons\notes2.png" />
+    <Content Include="Content\NewBookingSystem\images\icons\pay.png" />
+    <Content Include="Content\NewBookingSystem\images\icons\pay2.png" />
+    <Content Include="Content\NewBookingSystem\images\icons\PayAtAcademy-b.png" />
+    <Content Include="Content\NewBookingSystem\images\icons\PayAtAcademy.png" />
+    <Content Include="Content\NewBookingSystem\images\icons\PayAtAcademy2.png" />
+    <Content Include="Content\NewBookingSystem\images\icons\print.svg" />
+    <Content Include="Content\NewBookingSystem\images\icons\profile.png" />
+    <Content Include="Content\NewBookingSystem\images\icons\Reschedule.png" />
+    <Content Include="Content\NewBookingSystem\images\icons\SendMoneyLink-b.png" />
+    <Content Include="Content\NewBookingSystem\images\icons\SendMoneyLink.png" />
+    <Content Include="Content\NewBookingSystem\images\icons\SendMoneyLink2.png" />
+    <Content Include="Content\NewBookingSystem\images\icons\SingleDay.png" />
+    <Content Include="Content\NewBookingSystem\images\icons\split.png" />
+    <Content Include="Content\NewBookingSystem\images\icons\stnotes.png" />
+    <Content Include="Content\NewBookingSystem\images\icons\thanks_tick.svg" />
+    <Content Include="Content\NewBookingSystem\images\icons\updown.png" />
+    <Content Include="Content\NewBookingSystem\images\img1slide.jpg" />
+    <Content Include="Content\NewBookingSystem\images\img2slide.jpg" />
+    <Content Include="Content\NewBookingSystem\images\img3slide.jpg" />
+    <Content Include="Content\NewBookingSystem\images\map3.png" />
+    <Content Include="Content\NewBookingSystem\images\menuarow.png" />
+    <Content Include="Content\NewBookingSystem\images\moorparklogo.png" />
+    <Content Include="Content\NewBookingSystem\images\mylocker.png" />
+    <Content Include="Content\NewBookingSystem\images\mylocker1.png" />
+    <Content Include="Content\NewBookingSystem\images\next.png" />
+    <Content Include="Content\NewBookingSystem\images\next1.png" />
+    <Content Include="Content\NewBookingSystem\images\pupilsbg.png" />
+    <Content Include="Content\NewBookingSystem\images\red_thumb.png" />
+    <Content Include="Content\NewBookingSystem\images\shopping-cart-solid.svg" />
+    <Content Include="Content\NewBookingSystem\images\smallbanner.jpg" />
+    <Content Include="Content\NewBookingSystem\images\Trophy-V4-Gold_Thumb.png" />
+    <Content Include="Content\NewBookingSystem\images\Trophy-V5-Silver_Thumb.png" />
+    <Content Include="Content\NewBookingSystem\images\Trophyv1_Thumb.png" />
+    <Content Include="Content\NewBookingSystem\images\upar.png" />
+    <Content Include="Content\NewBookingSystem\js\bootstrap.min.js" />
+    <Content Include="Content\NewBookingSystem\js\Common.js" />
+    <Content Include="Content\NewBookingSystem\js\datepicker.js" />
+    <Content Include="Content\NewBookingSystem\js\Gijgo.min.js" />
+    <Content Include="Content\NewBookingSystem\js\jquery.min.js" />
+    <Content Include="Content\NewBookingSystem\carousel\owl.carousel.min.js" />
+    <Content Include="Content\WP\JS\MenuHtml.js" />
+    <Content Include="favicon.ico" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Global.asax" />
+    <Content Include="Content\Site.css" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <None Include="Scripts\jquery-3.4.1.intellisense.js" />
+    <Content Include="Scripts\Common\Common.js" />
+    <Content Include="Scripts\jquery-3.4.1.js" />
+    <Content Include="Scripts\jquery-3.4.1.min.js" />
+    <Content Include="Scripts\jquery-3.4.1.slim.js" />
+    <Content Include="Scripts\jquery-3.4.1.slim.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Views\Home\Footer.cshtml" />
+    <Content Include="Views\Home\Header.cshtml" />
+    <Content Include="Web.config" />
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Home\About.cshtml" />
+    <Content Include="Views\Home\Contact.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Home\_Header.cshtml" />
+    <Content Include="Views\Home\BuddyBossloginProcessing.cshtml" />
+    <Content Include="Views\Home\_HeaderModels.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="Models\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\bootstrap.min.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Content\bootstrap-theme.min.css.map" />
+    <Content Include="Content\bootstrap-theme.css.map" />
+    <None Include="packages.config" />
+    <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
+    <Content Include="Scripts\jquery-3.4.1.min.map" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>14286</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>https://localhost:44303/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

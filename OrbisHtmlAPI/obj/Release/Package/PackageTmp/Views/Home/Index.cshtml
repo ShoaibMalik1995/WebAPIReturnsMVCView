@@ -1,0 +1,38 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+    Layout = null;
+
+}
+
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="~/Content/NewBookingSystem/css/bootstrap.min.css">
+<link rel="stylesheet" href="~/Content/NewBookingSystem/carousel/owl.carousel.min.css">
+<link rel="stylesheet" href="~/Content/NewBookingSystem/css/navbar.css">
+<link rel="stylesheet" href="~/Content/NewBookingSystem/css/datepicker.css" />
+<link rel="stylesheet" href="~/Content/NewBookingSystem/css/stylein.css">
+
+
+<hr />
+
+<div id="divHeader">
+
+</div>
+<hr />
+<div id="divFooter">
+
+</div>
+
+<!-- java script reference -->
+<script src="~/Content/NewBookingSystem/js/jquery.min.js"></script>
+<script src="~/Content/NewBookingSystem/js/bootstrap.min.js"></script>
+<script src="~/Content/NewBookingSystem/js/datepicker.js"></script>
+<script src="~/Content/NewBookingSystem/carousel/owl.carousel.min.js"></script>
+<script src="~/Scripts/Common/Common.js"></script>
+<script src="~/Content/WP/JS/MenuHtml.js"></script>
+<script type="text/javascript">
+    $(function () {
+        LoadMenuHeaderHtml(@ViewBag.AcademyId, @ViewBag.UserId);
+        LoadFooterHtml(@ViewBag.AcademyId);
+
+    });
+</script>

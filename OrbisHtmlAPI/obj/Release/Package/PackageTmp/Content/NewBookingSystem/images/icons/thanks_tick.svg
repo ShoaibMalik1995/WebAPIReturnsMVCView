@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="116" height="119" viewBox="0 0 116 119">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #425763;
+        filter: url(#filter);
+      }
+
+      .cls-2 {
+        fill: #fff;
+        fill-rule: evenodd;
+      }
+    </style>
+    <filter id="filter" x="0" y="0" width="117" height="120" filterUnits="userSpaceOnUse">
+      <feOffset result="offset" dy="5" in="SourceAlpha"/>
+      <feGaussianBlur result="blur" stdDeviation="1.732"/>
+      <feFlood result="flood" flood-color="#425763" flood-opacity="0.23"/>
+      <feComposite result="composite" operator="in" in2="blur"/>
+      <feBlend result="blend" in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <circle class="cls-1" cx="58" cy="56" r="56"/>
+  <path id="Shape_334_1" data-name="Shape 334 1" class="cls-2" d="M30,58.329L49.52,78,87,40.338,81.619,35,49.52,67.25l-14.213-14.3Z"/>
+</svg>

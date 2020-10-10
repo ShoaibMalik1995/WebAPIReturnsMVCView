@@ -1,0 +1,57 @@
+﻿@{
+    
+}
+
+<style type="text/css">
+    /* Paste this css to your style sheet file or under head tag */
+    /* This only works with JavaScript,  if it's not present, don't show loader */
+    .no-js #loader {
+        display: none;
+    }
+
+    .js #loader {
+        display: block;
+        position: absolute;
+        left: 100px;
+        top: 0;
+    }
+
+    .se-pre-con {
+        position: fixed;
+        left: 0px;
+        top: 0px;
+        width: 100%;
+        height: 100%;
+        z-index: 9999;
+        background: url(~/Content/images/loader-128x/Preloader_2.gif) center no-repeat #fff;
+    }
+</style>
+@*<form method="POST" action="https://dev.jjtestsite.us/BuddyBossGLF/login-processing/">
+    <input type="text" name="first_name" placeholder="first name">
+    <input type="text" name="last_name" placeholder="last_name">
+    <input type="text" name="email" placeholder="email">
+    <input type="password" name="password" placeholder="password">
+    <input type="hidden" name="academyId" value="@ViewBag.academyId" />
+    <input type="hidden" name="userId" value="@ViewBag.userId" />
+    <input type="hidden" name="ReturnUrl" value="@ViewBag.ReturnUrl" />
+    <input type="submit">
+</form>*@
+<form method="POST" action="https://dev.jjtestsite.us/BuddyBossGLF/login-processing/" style="display:none;">
+    <input type="hidden" name="email" value="@ViewBag.email">
+    <input type="hidden" name="academyId" value="@ViewBag.academyId" />
+    <input type="hidden" name="userId" value="@ViewBag.userId" />
+    <input type="hidden" name="ReturnUrl" value="@ViewBag.ReturnUrl" />
+    <input type="hidden" name="HostMDHash" value="@ViewBag.HostMDHash" />
+    <input id="btnSubmit" type="submit" style="display:none;">
+</form>
+
+<div class="se-pre-con"></div>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.2/modernizr.js"></script>
+<script type="text/javascript">
+    $(function () {
+        // Animate loader off screen
+        $(".se-pre-con").fadeOut(10000);
+        $("#btnSubmit").click();
+    });
+</script>

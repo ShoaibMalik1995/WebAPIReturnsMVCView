@@ -1,0 +1,29 @@
+﻿@model DataAccess.Models.CommonModel
+
+@{ 
+    string AbsPath = "http://" + Model.AbsPathURL;
+}
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-7">
+                <div class="fmenu">
+                    <p>COPYRIGHT @DateTime.Today.Year.ToString() @Model.AcademyName.ToUpper()</p>
+                    <ul>
+                        <li><a href="@Url.Content(Model.TermsContent == null || Model.TermsContent == "" ? "#" : Model.TermsContent)" target="_blank">Terms & Conditions </a></li>
+                        <li><a href="@Url.Content(Model.PrivacyContent == null || Model.PrivacyContent == "" ? "#" : Model.PrivacyContent)" target="_blank">Privacy</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-sm-5 fsocial">
+                <ul>
+                    <li>
+                        @*<b>Powered By</b>*@
+                        <img src="@(AbsPath + "/Content/NewBookingSystem/images/glflocker.jpg")" width="250"></li>
+                </ul>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </div>
+</footer>

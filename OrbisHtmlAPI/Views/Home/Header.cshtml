@@ -1,0 +1,1120 @@
+﻿@model DataAccess.Models.CommonModel
+
+@{
+    string LessPkg = "58,1149,1186,1187,1197,1201,1202,1205,1206,1208,1209,1214,1215,1224,1225,1226,1227,1228,1217,1218,1219,1220,1221,1222,1223,1194,1196,1189,1190,1139,1191,1188,1193,1118,1157,1159,1182,1186,1187,1199,1145,1178";
+    string GlfPkg = "1183";
+    string PkgCrdts = "12,13";
+    string StoreLabel = "";
+    if (LessPkg.Contains(Model.AcademyId.ToString()))
+    {
+        StoreLabel = "Lesson Packages";
+    }
+    else if (GlfPkg.Contains(Model.AcademyId.ToString()))
+    {
+        StoreLabel = "Golf Packages";
+    }
+    else if (PkgCrdts.Contains(Model.AcademyId.ToString()))
+    {
+        StoreLabel = "Package Credits";
+    }
+    else
+    {
+        StoreLabel = "Store";
+    }
+    string AbsPath = "http://" + Model.AbsPathURL;
+}
+
+<style type="text/css">
+    .menu ul li a {
+        color: #000;
+    }
+</style>
+<input type="hidden" value="@Model.UserRoleId" id="userRoleIdHdn" />
+<header>
+    <div id="imgBusyBox" alt="" style="display:none;">
+        <img src="@Url.Content(AbsPath + "/Content/images/Glf_LoaderNew.gif")" />
+    </div>
+    @if (Model.UserRoleId == 4 || Model.UserRoleId == 0)
+    {
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="topsocial">
+                        <ul class="login_nv">
+                        </ul>
+                        <ul class="login_nv2">
+                            @if (Model.LoggedInUserId > 0 && Model.UserRoleId == 4)
+                            {
+                                <li>
+                                    <i id="plusLink" class="fa fa-plus" href="" onclick="$('#panel').slideToggle('slow'); $('#plusLink').hide(); $('#MinLink').show(); return false;"></i>
+                                    <i id="MinLink" class="fa fa-minus" style="display:none" href="" onclick="$('#panel').slideToggle('slow'); $('#MinLink').hide(); $('#plusLink').show(); return false;"></i>
+                                </li>
+                            }
+                            <li class="cart_header">
+                                <a href="@(AbsPath + "/BookingSystem/Cart")">
+                                    <img src="@(AbsPath + "/Content/NewBookingSystem/images/shopping-cart-solid.svg")" width="30" height="25">
+                                    <span id="spnCartItemCount">@Model.CartItemCount</span>
+                                </a>
+                            </li>
+                            <li>
+                                <img src="@(AbsPath + "/Content/NewBookingSystem/images/mylocker.png")" />
+                            </li>
+                            @if (Model.LoggedInUserId > 0)
+                            {
+                                <li class="logincls"><a href="@Url.Content(AbsPath + "/Login/LogOut")">Logout <i class="fa fa-angle-right"></i> </a></li>
+                            }
+                            else
+                            {
+                                <li class="logincls"><a href="@Url.Content(AbsPath + "/Login/Login")">Login <i class="fa fa-angle-right"></i> </a></li>
+                                <li class="signcls"><a href="@Url.Content(AbsPath + "/User/Signup")">Signup <i class="fa fa-angle-right"></i></a></li>
+                            }
+                        </ul>
+
+
+                    </div>
+                    <div id="panel" style="display: none" class="toppanel">
+                        @if (Model.UserRoleId > 0 && Model.UserRoleId == 4)
+                        {
+                            <div class="paneltabs">
+                                <span><a id="lnkPersonalDetails" href="#" onclick="$('.panneldiv').hide(); $('#divProfileDetails').show(); return false;">PERSONAL DETAILS |</a></span>
+                                <span><a id="lnkProfile" href="#" onclick="$('.panneldiv').hide(); $('#divInformationDisplay').show(); return false;">PROFILE |</a></span>
+                                <span><a id="lnkMyAccount" href="#" onclick="$('.panneldiv').hide(); $('#divMyAccount').show(); return false;">MY ACCOUNT |</a></span>
+                                <span><a id="lnkMyAccountPackages" href="#" onclick="$('.panneldiv').hide(); $('#divMyAccountPackages').show(); GetPlayerAllLessonCredits(@Model.CurrentUser.playerId); return false;">CREDITS |</a></span>
+                                <span><a id="lnkMyAccountGifts" href="#" onclick="$('.panneldiv').hide(); $('#divMyAccountGifts').show(); GetUserAvailableGifts(@Model.CurrentUser.Userid); return false;">GIFTS |</a></span>
+                                <span><a id="lnkfacebook" href="#" onclick="$('.panneldiv').hide(); $('#divFacebook').show(); return false;">SOCIAL MEDIA |</a></span>
+                                <span><a href="#" id="lnkMyPhotos" onclick="$('.panneldiv').hide(); $('#divMyPhotos').show(); return false;">PROFILE PHOTOS |</a></span>
+                                <span><a href="#" id="lnkNotification" onclick="$('.panneldiv').hide(); $('#divPlayerNotification').show(); return false;">NOTIFICATION</a></span>
+
+                            </div>
+                            /*Personal Details*/
+                            <div id="divProfileDetails" class="panneldiv">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <h4>@Model.CurrentUser.firstName @Model.CurrentUser.Lastname</h4>
+                                        <strong>
+                                            Address
+                                        </strong>
+                                        <br />
+                                        <label>
+                                            @Model.CurrentUser.AddressLine1 @Model.CurrentUser.AddressLine2
+                                        </label>
+                                        <br />
+                                        <strong>
+                                            Email
+                                        </strong>
+                                        <br />
+                                        <label>
+                                            @Model.CurrentUser.PersonalEmail
+                                        </label>
+                                        <br />
+                                        <strong>
+                                            Mobile
+                                        </strong>
+                                        <br />
+                                        <label>
+                                            @Model.CurrentUser.Mobile
+                                        </label>
+                                        <br />
+                                        <strong>
+                                            Telephone
+                                        </strong>
+                                        <br />
+                                        <label>
+                                            @Model.CurrentUser.Mobile
+                                        </label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <strong>
+                                            Date of Birth
+                                        </strong>
+                                        <br />
+                                        <label>
+                                            @Model.CurrentUser.dtDateofBirth.ToShortDateString()
+                                        </label>
+                                        <br />
+                                        <strong>
+                                            Medical History
+                                        </strong>
+                                        <br />
+                                        <label>
+                                            @Model.CurrentUser.MedicalIssues
+                                        </label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <strong>
+                                            Any Injuries
+                                        </strong>
+                                        <br />
+                                        <label>
+                                            @Model.CurrentUser.Injuries
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="clr">
+                                </div>
+                                <div class="row">
+                                    <a class="col-md-2" href="@Url.Content(AbsPath + "/Player/PlayerDetails")">Edit Full Profile</a>
+                                    <a class="col-md-2" href="#" onclick="$('#changePasswordModal').modal('show')">Change Password</a>
+                                    <a class="col-md-2" href="#" onclick="$('#deleteAccountModal').modal('show')">Remove Account</a>
+                                </div>
+                            </div>
+                            /*Profile*/
+                            <div id="divInformationDisplay" style="display: none;" class="panneldiv">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <strong>
+                                            Playing As:
+                                        </strong>
+                                        <br />
+                                        <label>
+                                            @(Model.CurrentUser.LeftHanded == 1 ? "Left Handed" : "Right Handed")
+                                        </label>
+                                        <br />
+                                        <strong>
+                                            Have you had golf lessons in the past?
+                                        </strong>
+                                        <br />
+                                        <label>
+                                            @(Model.CurrentUser.HadGolfLessons > 0 ? "Yes" : "No")
+                                        </label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <strong>
+                                            Handicap Tracker:
+                                        </strong>
+                                        <br />
+                                        <label>
+                                            @Model.CurrentUser.HandiCapName
+                                        </label>
+                                        <br />
+                                        <strong>
+                                            Mission Statement:
+                                        </strong>
+                                        <br />
+                                        <label>
+                                            @Model.CurrentUser.MissionStatement
+                                        </label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <strong>
+                                            How long have you been playing golf?
+                                        </strong>
+                                        <br />
+                                        <label>
+                                            @Model.CurrentUser.PlayingStartDate
+                                        </label>
+                                        <br />
+                                        <strong>
+                                            How often do you play?
+                                        </strong>
+                                        <br />
+                                        <label>
+                                            @Model.CurrentUser.PlayFrequency
+                                        </label>
+                                        <br />
+                                        <strong>
+                                            How often do you practice?
+                                        </strong>
+                                        <br />
+                                        <label>
+                                            @Model.CurrentUser.PracticeFrequency
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="clr">
+                                </div>
+                            </div>
+                            @*My Account Packages*@
+                            <div id="divMyAccountPackages" style='display: none;' class="panneldiv">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <table id="ulPackageslist"></table>
+                                    </div>
+                                </div>
+                                <div class="clr">
+                                </div>
+                            </div>
+                            @*My Gift Cards *@
+                            <div id="divMyAccountGifts" style='display: none;' class="panneldiv">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <table id="ulGiftslist"></table>
+                                    </div>
+                                </div>
+                                <div class="clr">
+                                </div>
+                                <div class="row">
+                                    <a class="col-md-4" id="lnkSaveGiftCard" href="#" onclick="$('#divSaveGiftCard').modal('show'); return false;">Add Gift Card</a>
+                                </div>
+                            </div>
+                            <div id="divPlayerNotification" style="display: none" class="panneldiv">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <input type="checkbox" name="chkRecEmail" id="chkRecEmail" @(Model.CurrentUser.RecEmail == true ? "checked" : "") onchange="UpdateUserGDPR()" />
+                                        <span>I would like to receive emails about offers and news from the academy.</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        }
+                        <div id="divMyAccount" style='display: none;' class="panneldiv">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <strong>
+                                        Billing Address
+                                    </strong>
+                                    <br />
+                                    <div id="tdPlayerBillingAddress">
+                                        @Model.CurrentUser.BillingAddress
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="clr">
+                            </div>
+                            <div id="divEditBilling" class="row">
+                                <a class="col-md-4" href="#" onclick="OpenBillingAddModal()">Edit Billing Address</a>
+                            </div>
+                        </div>
+                        @*Facebook Tab*@
+                        <div id="divFacebook" style="display: none;" class="panneldiv">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <strong>
+                                        Facebook Login
+                                    </strong>
+                                    <br />
+                                    <label id="tdfbName">
+                                        @Model.CurrentUser.FbId
+                                    </label>
+                                    <br />
+                                    <strong>
+                                        Facebook Password
+                                    </strong>
+                                    <br />
+                                    <label id="tdfbToken">
+                                        @Model.CurrentUser.FbToken
+                                    </label>
+                                </div>
+                                <div class="col-md-4">
+                                    <strong>
+                                        Twitter Login
+                                    </strong>
+                                    <br />
+                                    <label id="lTwitterID">
+                                        @Model.CurrentUser.TwitterID
+                                    </label>
+                                    <br />
+                                    <strong>
+                                        Twitter Password
+                                    </strong>
+                                    <label id="lAccesTokenSecret">
+                                        @Model.CurrentUser.AccesTokenSecret
+                                    </label>
+                                </div>
+                                <div class="col-md-4" style="display: none;">
+                                    <strong>
+                                        Twitter Consumer Secret
+                                    </strong>
+                                    <br />
+                                    <label id="tdConsumerSecret" class="WordBreakfacebook">
+                                    </label>
+                                    <br />
+                                    <strong>
+                                        Twitter Consumer
+                                    </strong>
+                                    <label id="tdConsumer">
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="clear">
+                            </div>
+                            <div class="row">
+                                <div id="divEditProfile" class="col-md-4">
+                                    <a id="fbEdit" href="#" onclick="EditFbUser()">Edit Facebook +</a>
+                                </div>
+                                <div id="divEditTwitter" class="colmd-4">
+                                    <a id="twEdit" href="#" onclick="EditTwitterUser()">Edit Twitter +</a>
+                                </div>
+                            </div>
+                            <div class="clr">
+                            </div>
+                        </div>
+                        @*My Photos Tab*@
+                        <div id="divMyPhotos" style="display: none;" class="panneldiv">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <strong>
+                                        Profile Picture:
+                                    </strong>
+                                    <br />
+                                    <label id="tdfbNameM">
+                                    </label>
+                                    <div id="imgProfilePix">
+                                        @if (!string.IsNullOrEmpty(Model.CurrentUser.PhotoUrl))
+                                        {
+                                            <img src="@Url.Content(string.IsNullOrEmpty(Model.CurrentUser.PhotoUrl) ? "" : AbsPath + Model.CurrentUser.PhotoUrl.Replace("~",""))" alt="img" width="130" height="130" />
+                                        }
+                                        else
+                                        {
+                                            <img src="@(AbsPath + "/Content/images/noimg.png")" alt="Profile image" width="130" height="130">
+                                        }
+                                    </div>
+                                    <div id="divEditProfilePP">
+                                        <a id="lnkUpPix" href="#" onclick="$('#profileImage').val(''); $('#uploadProfilePic').modal('show')">Upload +</a>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <strong>
+                                        Background Picture:
+                                    </strong>
+                                    <br />
+                                    <label id="tdAccessPP">
+                                    </label>
+                                    <div id="imgBackPix">
+                                        @if (!string.IsNullOrEmpty(Model.CurrentUser.BackgroundImageUrl))
+                                        {
+                                            <img src="@Url.Content(string.IsNullOrEmpty(Model.CurrentUser.BackgroundImageUrl) ? "" : AbsPath + Model.CurrentUser.BackgroundImageUrl.Replace("~",""))" alt="img" width="130" height="130" />
+                                        }
+                                    </div>
+                                    <div id="tdAccessSecretPP">
+                                    </div>
+                                    <div>
+                                        <a onclick="return LoadGlobalImages(1);" href="#">Upload +</a>
+                                    </div>
+                                </div>
+                                @if (Model.UserRoleId == 4 || Model.UserRoleId == 3)
+                                {
+                                    <div class="col-md-4">
+                                        <strong>
+                                            Public Background Picture:
+                                        </strong>
+                                        <br />
+                                        <label id="">
+                                        </label>
+                                        <div id="imgpublicBackPix">
+                                            @if (!string.IsNullOrEmpty(Model.CurrentUser.PublicBackgroundImageUrl))
+                                            {
+                                                <img src="@Url.Content(AbsPath + Model.CurrentUser.PublicBackgroundImageUrl.Replace("~",""))" alt="img" width="130" height="130" />
+                                            }
+                                        </div>
+                                        <div>
+                                            <a onclick="return LoadGlobalImages(2);" href="#">Upload +</a>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                            <div class="clr">
+                            </div>
+                            <br />
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-sm-2 col-2">
+                    <span class="logo">
+                        <img src="@Url.Content((string.IsNullOrEmpty(Model.AcademyLogo) ? "" : AbsPath + Model.AcademyLogo.Replace("~","")).Trim())">
+                    </span>
+                </div>
+                <div class="col-sm-10 col-10">
+                    <nav class="navbar navbar-toggleable-md navbar-inverse menu">
+                        <button class="navbar-toggler navbar-toggler-right" type="button" id="mobNavBar" data-toggle="collapse" data-target="#navopen" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <div class="collapse navbar-collapse" id="navopen">
+                            <ul class="navbar-nav">
+                                @if (Model.LoggedInUserId > 0 && Model.MenuList != null)
+                                {
+                                    if (Model.MenuList.Count > 0)
+                                    {
+                                        var MenuList = Model.MenuList.Where(m => m.ParentID == 0).ToList();
+                                        if (MenuList.Count > 0)
+                                        {
+                                            foreach (var item in MenuList)
+                                            {
+                                                if (!Model.FrontEndEnabled && item.Title.ToUpper().Contains("FRONT END"))
+                                                {
+                                                    continue;
+                                                }
+                                                if (item.Title.ToUpper().Contains("STORE") || item.Title.ToUpper().Contains("PACKAGE"))
+                                                {
+                                                    <li><a href="@Model.StoreUrl">@item.Title</a></li>
+                                                }
+                                                else
+                                                {
+                                                    var SubMenuList = Model.MenuList.Where(m => m.ParentID == item.ID).ToList();
+                                                    if (SubMenuList.Count > 0)
+                                                    {
+                                                        <li class="nav-item dropdown">
+                                                            <a href="#" class="nav-link dropdown-toggle" id="@item.MenuId" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">@item.Title</a>
+                                                            <div class="dropdown-menu" aria-labelledby="@item.MenuId">
+                                                                @foreach (var sitem in SubMenuList)
+                                                                {
+                                                                    <a class="dropdown-item" href="@(AbsPath + sitem.MeneURL)">@sitem.Title</a>
+                                                                }
+                                                            </div>
+                                                        </li>
+
+                                                    }
+                                                    else
+                                                    {
+                                                        <li><a href="@(AbsPath + item.MeneURL)">@item.Title</a></li>
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    @*<li><a href="@Model.HomeUrl">Home</a></li>
+                                        if (Orbis.Services.Utils.CommonUtils.EnableFrontEndWebsite)
+                                        {
+                                            <li><a href="@Url.Content("~/Academy/GLFProgrammes")">@Orbis.Resources.AcademyManager.MyLocker.lblProgrammes</a></li>
+                                        }
+                                        <li><a href="@Url.Content("~/BookingSystem/BookingSystemStep1_NBS")">Book Online</a> </li>
+                                        if (Orbis.Services.Utils.CommonUtils.EnableFrontEndWebsite)
+                                        {
+                                            <li><a href="@Url.Content("~/Academy/Coaches")">Coaches</a></li>
+                                        }
+                                        <li><a href="@Model.StoreUrl">@StoreLabel</a> </li>
+                                        <li><a href="@Model.StoreUrl">Gift Cards</a> </li>
+                                        if (Orbis.Services.Utils.CommonUtils.EnableFrontEndWebsite)
+                                        {
+                                            <li><a href="@Url.Content("~/Academy/ContactUs")">Contact</a></li>
+                                        }*@
+                                }
+
+                            </ul>
+                        </div>
+                    </nav>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="topsocial">
+
+                        <ul class="login_nv2">
+                            @if (Model.UserRoleId != 2)
+                            {
+                                <li class="cart_header cart_header1"><a href="/BookingSystem/Cart"><i class="fa fa-shopping-cart"></i><span id="spnCartItemCount">@Model.CartItemCount</span> </a></li>
+                            }
+                            @if (Model.LoggedInUserId > 0 && Model.UserRoleId != 7)
+                            {
+                                @*<li>
+                                    <a href="#" id="UpLink" onclick="$('#panel').slideToggle('slow'); $('#UpLink').hide();$('#DownLink').show(); return false;">ACCOUNT SETTINGS<img src="@(AbsPath + "/Content/NewBookingSystem/images/upar.png")" width="10" height="10" /></a>
+                                    <a href="#" id="DownLink" onclick="$('#panel').slideToggle('slow'); $('#DownLink').hide();$('#UpLink').show(); return false;" style="display:none">ACCOUNT SETTINGS<img src="@(AbsPath + "/Content/NewBookingSystem/images/downar.png")" width="10" height="10" /></a>
+                                </li>*@
+                                <li>
+                                    <a disabled="true" href="#" id="UpLink">ACCOUNT SETTINGS<img src="@(AbsPath + "/Content/NewBookingSystem/images/upar.png")" width="10" height="10" /></a>
+                                    <a disabled="true" href="#" id="DownLink" style="display:none">ACCOUNT SETTINGS<img src="@(AbsPath + "/Content/NewBookingSystem/images/downar.png")" width="10" height="10" /></a>
+                                </li>
+                            }
+                            <li class="sample" id="userimage">
+                                @if (!string.IsNullOrEmpty(Model.CurrentUser.PhotoUrl))
+                                {
+                                    <img src="@Url.Content(AbsPath + Model.CurrentUser.PhotoUrl.Replace("~",""))" alt="img" width="130" height="130" />
+                                }
+                                else
+                                {
+                                    <img src="@(AbsPath + "/Content/images/noimg.png")" alt="Profile image" width="130" height="130">
+                                }
+                            </li>
+                        </ul>
+                    </div>
+                    <div id="panel" style="display: none" class="toppanel">
+                        @if (Model.UserRoleId > 0 && Model.UserRoleId == 2)
+                        {
+                            <div class="paneltabs">
+                                <span><a id="lnkPersonalDetails" href="#" onclick="$('.panneldiv').hide(); $('#divProfileDetails').show(); return false;">PERSONAL DETAILS |</a></span>
+                                <span><a id="lnkMyAccount" href="#" onclick="$('.panneldiv').hide(); $('#divMyAccount').show(); return false;">MY ACCOUNT |</a></span>
+                                <span><a id="lnkfacebook" href="#" onclick="$('.panneldiv').hide(); $('#divFacebook').show(); return false;">SOCIAL MEDIA |</a></span>
+                                <span id="lnkMyPhotos"><a href="#" onclick="$('.panneldiv').hide(); $('#divMyPhotos').show(); return false;">PROFILE PHOTOS |</a></span>
+                                <span><a href="#" id="lnkAcademySettings" onclick="$('.panneldiv').hide(); $('#divAcademySettings').show(); return false;">ACADEMY SETTINGS</a></span>
+                            </div>
+                            <div id="divProfileDetails" class="panneldiv">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <h6 class="font-weight-bold">@Model.CurrentUser.firstName @Model.CurrentUser.Lastname</h6>
+                                        <strong>
+                                            D.O.B
+                                        </strong>
+                                        <br />
+                                        <label>
+                                            @Model.CurrentUser.dtDateofBirth.ToShortDateString()
+                                        </label>
+                                        <br />
+                                        <strong>
+                                            Address
+                                        </strong>
+                                        <br />
+                                        <label>
+                                            @Model.CurrentUser.AddressLine1 @Model.CurrentUser.City
+                                        </label>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <strong>
+                                            Email
+                                        </strong>
+                                        <br />
+                                        <label>
+                                            @Model.CurrentUser.PersonalEmail
+                                        </label>
+                                        <br />
+                                        <strong>
+                                            Mobile
+                                        </strong>
+                                        <br />
+                                        <label>
+                                            @Model.CurrentUser.Mobile
+                                        </label>
+                                        <br />
+                                        <strong>
+                                            Telephone
+                                        </strong>
+                                        <br />
+                                        <label>
+                                            @Model.CurrentUser.HomeTel
+                                        </label>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <strong>
+                                            Skype
+                                        </strong>
+                                        <br />
+                                        <label>
+                                            @Model.CurrentUser.SkypeDetail
+                                        </label>
+                                        <br />
+                                        <strong>
+                                            Twitter
+                                        </strong>
+                                        <br />
+                                        <label>
+                                            @Model.CurrentUser.TwitterUrl
+                                        </label>
+                                        <br />
+                                        <strong>
+                                            Facebook
+                                        </strong>
+                                        <br />
+                                        <label>
+                                            @Model.CurrentUser.FaceBookUrl
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="clr">
+                                </div>
+                                <div class="row">
+                                    <a class="col-md-2" href="#" onclick="OpenEditMgrProfileModal(); return false;">Edit Personal Details +</a>
+                                    <a class="col-md-2" href="#" onclick="$('#changePasswordModal').modal('show')">Change Password</a>
+                                    <a class="col-md-2" href="/Login/SwitchAccount">Switch Account</a>
+                                </div>
+                            </div>
+                            @*Mngr Academy settings*@
+                            <div id="divAcademySettings" class="panneldiv" style="display: none;">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <strong>
+                                            Enable Item
+                                        </strong>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <strong>
+                                            Description
+                                        </strong>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <input type="checkbox" id="cbAddressEnable" onchange="UpdateAcademySetting('EnableAddress'); return false;" @(Model.AcademySettings.AddressEnabled ? "checked" : "") />
+                                        <label>Address Fields</label>
+                                        <br />
+                                        <input type="radio" name="rdoAcademyWeatherSettings" id="rdoAcademyCelsius" onchange="UpdateAcademySetting('AcademyWeatherSettings')" @(Model.AcademySettings.AcademyWeatherSetting == "C" ? "checked" : "") />
+                                        <label>Celsius</label>
+                                        <input type="radio" name="rdoAcademyWeatherSettings" id="rdoAcademyFahrenheit" onchange="UpdateAcademySetting('AcademyWeatherSettings')" @(Model.AcademySettings.AcademyWeatherSetting == "F" ? "checked" : "") />
+                                        <label>Fahrenheit</label>
+                                        <br />
+                                        <input type="checkbox" id="cbTimeFormat" onchange="UpdateAcademySetting('12HoursTimeFormat'); return false;" @(Model.AcademySettings.ThTimeFormat ? "checked" : "") />
+                                        <label>12 Hours Time Format</label>
+                                        <br />
+                                        <input type="checkbox" id="cbMembershipfields" onchange="UpdateAcademySetting('Manager.IsMembershipShow'); return false;" @(Model.AcademySettings.IsMembershipShow ? "checked" : "") />
+                                        <label>Membership field visibility</label>
+                                        <br />
+                                    </div>
+                                    <div class="col-md-8">
+                                        <label>Add address fields to the checkout page.</label>
+                                        <br />
+                                        <label>Show weather in Celsius/Fahrenheit.</label>
+                                        <br />
+                                        <label>12 hours format or 24 hours format.</label>
+                                        <br />
+                                        <label>Allow Membership field visibility.</label>
+                                    </div>
+                                </div>
+                                <div class="clr"></div>
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <a href="#" onclick="$('#divRescheduleHourPopup').modal('show'); return false;">Reschedule Hour Limit</a>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <a href="#" onclick="GetReminder(); return false;">Add Reminder</a>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        }
+                        else if (Model.UserRoleId > 0 && Model.UserRoleId == 3)
+                        {
+                            <div class="paneltabs">
+                                <span><a id="lnkPersonalDetails" href="#" onclick="$('.panneldiv').hide(); $('#divProfileDetails').show(); return false;">PERSONAL DETAILS |</a></span>
+                                <span><a id="lnkProfile" href="#" onclick="$('.panneldiv').hide(); $('#divInformationDisplay').show(); return false;">PROFILE |</a></span>
+                                <span><a id="lnkMyAccount" href="#" onclick="$('.panneldiv').hide(); $('#divMyAccount').show(); return false;">MY ACCOUNT |</a></span>
+                                <span><a id="lnkfacebook" href="#" onclick="$('.panneldiv').hide(); $('#divFacebook').show(); return false;">SOCIAL MEDIA |</a></span>
+                                <span id="lnkMyPhotos"><a href="#" onclick="$('.panneldiv').hide(); $('#divMyPhotos').show(); return false;">PROFILE PHOTOS</a></span>
+                            </div>
+                            @*Personal Details*@
+                            <div id="divProfileDetails" class="panneldiv">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <h6 class="font-weight-bold">@Model.CurrentUser.firstName @Model.CurrentUser.Lastname</h6>
+                                        <strong>
+                                            D.O.B
+                                        </strong>
+                                        <br />
+                                        <label>
+                                            @Model.CurrentUser.dtDateofBirth.ToShortDateString()
+                                        </label>
+                                        <br />
+                                        <strong>
+                                            Address
+                                        </strong>
+                                        <br />
+                                        <label>
+                                            @Model.CurrentUser.AddressLine1 @Model.CurrentUser.City
+                                        </label>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <strong>
+                                            Email
+                                        </strong>
+                                        <br />
+                                        <label>
+                                            @Model.CurrentUser.PersonalEmail
+                                        </label>
+                                        <br />
+                                        <strong>
+                                            Mobile
+                                        </strong>
+                                        <br />
+                                        <label>
+                                            @Model.CurrentUser.Mobile
+                                        </label>
+                                        <br />
+                                        <strong>
+                                            Telephone
+                                        </strong>
+                                        <br />
+                                        <label>
+                                            @Model.CurrentUser.HomeTel
+                                        </label>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <strong>
+                                            Skype
+                                        </strong>
+                                        <br />
+                                        <label>
+                                            @Model.CurrentUser.SkypeDetail
+                                        </label>
+                                        <br />
+                                        <strong>
+                                            Twitter
+                                        </strong>
+                                        <br />
+                                        <label>
+                                            @Model.CurrentUser.TwitterUrl
+                                        </label>
+                                        <br />
+                                        <strong>
+                                            Facebook
+                                        </strong>
+                                        <br />
+                                        <label>
+                                            @Model.CurrentUser.FaceBookUrl
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="clr">
+                                </div>
+                                <div class="row">
+                                    <a class="col-md-2" href="@Url.Content(AbsPath + "/CoachProfile/CoachDetails")">Edit Full Profile</a>
+                                    <a class="col-md-2" href="#" onclick="$('#changePasswordModal').modal('show')">Change Password</a>
+                                    <a class="col-md-2" href="@Url.Content(AbsPath + "/Login/SwitchAccount")">Switch Account</a>
+                                </div>
+                            </div>
+                            @*Profile*@
+                            <div id="divInformationDisplay" style="display: none;" class="panneldiv">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <strong>
+                                            PGA Status
+                                        </strong>
+                                        <br />
+                                        <label>
+                                            @Model.CurrentUser.PGAText
+                                        </label>
+                                        <br />
+                                        <strong>
+                                            @*@Orbis.Resources.Shared._NewLayout.lblFavourite Player*@
+                                            Favourite Player
+                                        </strong>
+                                        <br />
+                                        <label>
+                                            @Model.CurrentUser.FavouritePlayer
+                                        </label>
+                                        <br />
+                                        <strong>
+                                            @*@Orbis.Resources.Shared._NewLayout.lblFavourite Course*@
+                                            Favourite Course
+                                        </strong>
+                                        <br />
+                                        <label>
+                                            @Model.CurrentUser.FavouriteCourse
+                                        </label>
+                                        <br />
+                                        <strong>
+                                            Best Round
+                                        </strong>
+                                        <br />
+                                        <label>
+                                            @Model.CurrentUser.BestRound
+                                        </label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <strong>
+                                            My Dream Fourball
+                                        </strong>
+                                        <br />
+                                        <label>
+                                            @Model.CurrentUser.DreamFourball
+                                        </label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <strong>
+                                            Brief Profile
+                                        </strong>
+                                        <br />
+                                        <label>
+                                            @Model.CurrentUser.BriefProfile
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="clr">
+                                </div>
+                            </div>
+                        }
+                        else if (Model.UserRoleId > 0 && Model.UserRoleId == 6)
+                        {
+                            <div class="paneltabs">
+                                <span><a id="lnkPersonalDetails" href="#" onclick="$('.panneldiv').hide(); $('#divProfileDetails').show(); return false;">PERSONAL DETAILS |</a></span>
+                                <span><a id="lnkMyAccount" href="#" onclick="$('.panneldiv').hide(); $('#divMyAccount').show(); return false;">MY ACCOUNT |</a></span>
+                                <span><a id="lnkfacebook" href="#" onclick="$('.panneldiv').hide(); $('#divFacebook').show(); return false;">SOCIAL MEDIA |</a></span>
+                                <span id="lnkMyPhotos"><a href="#" onclick="$('.panneldiv').hide(); $('#divMyPhotos').show(); return false;">PROFILE PHOTOS</a></span>
+                            </div>
+                        }
+                        <div id="divMyAccount" style='display: none;' class="panneldiv">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <strong>
+                                        Billing Address
+                                    </strong>
+                                    <br />
+                                    <div id="tdPlayerBillingAddress">
+                                        @Model.CurrentUser.BillingAddress
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="clr">
+                            </div>
+                            <div id="divEditBilling" class="row">
+                                <a class="col-md-4" href="#" onclick="OpenBillingAddModal()">Edit Billing Address</a>
+                            </div>
+                        </div>
+                        @*Facebook Tab*@
+                        <div id="divFacebook" style="display: none;" class="panneldiv">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <strong>
+                                        Facebook Login
+                                    </strong>
+                                    <br />
+                                    <label id="tdfbName">
+                                        @Model.CurrentUser.FbId
+                                    </label>
+                                    <br />
+                                    <strong>
+                                        Facebook Password
+                                    </strong>
+                                    <br />
+                                    <label id="tdfbToken">
+                                        @Model.CurrentUser.FbToken
+                                    </label>
+                                </div>
+                                <div class="col-md-4">
+                                    <strong>
+                                        Twitter Login
+                                    </strong>
+                                    <br />
+                                    <label id="lTwitterID">
+                                        @Model.CurrentUser.TwitterID
+                                    </label>
+                                    <br />
+                                    <strong>
+                                        Twitter Password
+                                    </strong>
+                                    <label id="lAccesTokenSecret">
+                                        @Model.CurrentUser.AccesTokenSecret
+                                    </label>
+                                </div>
+                                <div class="col-md-4" style="display: none;">
+                                    <strong>
+                                        Twitter Consumer Secret
+                                    </strong>
+                                    <br />
+                                    <label id="tdConsumerSecret" class="WordBreakfacebook">
+                                    </label>
+                                    <br />
+                                    <strong>
+                                        Twitter Consumer
+                                    </strong>
+                                    <label id="tdConsumer">
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="clear">
+                            </div>
+                            <div class="row">
+                                <div id="divEditProfile" class="col-md-4">
+                                    <a id="fbEdit" href="#" onclick="EditFbUser()">Edit Facebook +</a>
+                                </div>
+                                <div id="divEditTwitter" class="colmd-4">
+                                    <a id="twEdit" href="#" onclick="EditTwitterUser()">Edit Twitter +</a>
+                                </div>
+                            </div>
+                            <div class="clr">
+                            </div>
+                        </div>
+                        @*My Photos Tab*@
+                        <div id="divMyPhotos" style="display: none;" class="panneldiv">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <strong>
+                                        Profile Picture:
+                                    </strong>
+                                    <br />
+                                    <label id="tdfbNameM">
+                                    </label>
+                                    <div id="imgProfilePix">
+                                        @if (!string.IsNullOrEmpty(Model.CurrentUser.PhotoUrl))
+                                        {
+                                            <img src="@Url.Content(AbsPath + Model.CurrentUser.PhotoUrl.Replace("~",""))" alt="img" width="130" height="130" />
+                                        }
+                                        else
+                                        {
+                                            <img src="@(AbsPath + "/Content/images/noimg.png")" alt="Profile image" width="130" height="130">
+                                        }
+                                    </div>
+                                    <div id="divEditProfilePP">
+                                        <a id="lnkUpPix" href="#" onclick="$('#profileImage').val(''); $('#uploadProfilePic').modal('show')">Upload +</a>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <strong>
+                                        Background Picture:
+                                    </strong>
+                                    <br />
+                                    <label id="tdAccessPP">
+                                    </label>
+                                    <div id="imgBackPix">
+                                        @if (!string.IsNullOrEmpty(Model.CurrentUser.BackgroundImageUrl))
+                                        {
+                                            <img src="@Url.Content(AbsPath + Model.CurrentUser.BackgroundImageUrl.Replace("~",""))" alt="img" width="130" height="130" />
+                                        }
+                                    </div>
+                                    <div id="tdAccessSecretPP">
+                                    </div>
+                                    <div>
+                                        <a onclick="return LoadGlobalImages(1);" href="#">Upload +</a>
+                                    </div>
+                                </div>
+                                @if (Model.UserRoleId == 4 || Model.UserRoleId == 3)
+                                {
+                                    <div class="col-md-4">
+                                        <strong>
+                                            Public Background Picture:
+                                        </strong>
+                                        <br />
+                                        <label id="">
+                                        </label>
+                                        <div id="imgpublicBackPix">
+                                            @if (!string.IsNullOrEmpty(Model.CurrentUser.PublicBackgroundImageUrl))
+                                            {
+                                                <img src="@Url.Content(AbsPath + Model.CurrentUser.PublicBackgroundImageUrl.Replace("~",""))" alt="img" width="130" height="130" />
+                                            }
+                                        </div>
+                                        <div>
+                                            <a onclick="return LoadGlobalImages(2);" href="#">Upload +</a>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                            <div class="clr">
+                            </div>
+                            <br />
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-sm-2 col-2 logoSec">
+                    <span class="logo">
+                        @if (!string.IsNullOrEmpty(Model.AcademyLogo))
+                        {
+                            <img src="@Url.Content(AbsPath + Model.AcademyLogo.Replace("~",""))">
+                        }
+                    </span>
+                </div>
+                <div class="col-sm-10 col-10 navSec">
+
+                    <ul class="login_nv">
+                        @if (Model.LoggedInUserId > 0 && Model.UserRoleList != null)
+                        {
+                            if (Model.UserRoleList.Count > 1)
+                            {
+                                foreach (var item in Model.UserRoleList)
+                                {
+
+                                    <li>
+                                        @*@if (Model.UserRoleId == item.UserRoleId)*@
+                                        @if (item.UserRoleId == 3)
+                                        {
+                                            <a class="acti" href="@(AbsPath + "/Login/RedirectToLocker/" + item.UserRoleId + "?controllerName=" + item.Controller + "&actionName=" + item.Action)">@item.UserRoleName</a>
+                                            //<a class="acti" href="../../Login/RedirectToLocker/@item.UserRoleId?controllerName=@item.Controller&actionName=@item.Action">@item.UserRoleName</a>
+                                        }
+                                        else
+                                        {
+                                            <a href="@(AbsPath + "/Login/RedirectToLocker/" + item.UserRoleId + "?controllerName=" + item.Controller + "&actionName=" + item.Action)">@item.UserRoleName</a>
+                                            //<a href="../../Login/RedirectToLocker/@item.UserRoleId?controllerName=@item.Controller&actionName=@item.Action">@item.UserRoleName</a>
+                                        }
+                                    </li>
+
+                                }
+
+                            }
+                        }
+                        <li class="anc">
+                            @if (Model.AcademyId > 0 && Model.AcademyId != 1119 && (Model.UserRoleId.ToString() == "2" || Model.UserRoleId.ToString() == "3"))
+                            {
+                                <a onclick="GetMyAccounts();" href="#">MY ACCOUNTS | </a>
+                            }
+                            @*@Html.ActionLink("LOG OUT", "LogOut", "Login")*@
+                            <a href="@Url.Content(AbsPath + "/Login/LogOut")">LOG OUT</a>
+                        </li>
+                    </ul>
+
+                </div>
+                <div class="clear"></div>
+                <div class="col-12" id="mainMenulist">
+                    <nav class="navbar navbar-toggleable-md navbar-inverse menu newMenu" style="float: right">
+                        <button class="navbar-toggler navbar-toggler-right" type="button" id="mobNavBar" data-toggle="collapse" data-target="#navopen" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <div class="collapse navbar-collapse" id="navopen">
+                            <ul class="navbar-nav">
+                                @if (Model.LoggedInUserId > 0 && Model.MenuList != null)
+                                {
+                                    if (Model.MenuList.Count > 0)
+                                    {
+                                        var MenuList = Model.MenuList.Where(m => m.ParentID == 0).ToList();
+                                        if (MenuList.Count > 0)
+                                        {
+                                            foreach (var item in MenuList)
+                                            {
+                                                if (!Model.FrontEndEnabled && item.Title.ToUpper().Contains("FRONT END"))
+                                                {
+                                                    continue;
+                                                }
+                                                if (item.Title.ToUpper().Contains("STORE") || item.Title.ToUpper().Contains("PACKAGE"))
+                                                {
+                                                    <li><a href="@Model.StoreUrl">@item.Title</a></li>
+                                                }
+                                                else if (item.Title.ToUpper().Contains("LMS"))
+                                                {
+                                                    <li><a href="@(item.MeneURL)">@item.Title</a></li>
+                                                }
+                                                else
+                                                {
+                                                    var SubMenuList = Model.MenuList.Where(m => m.ParentID == item.ID).ToList();
+                                                    if (SubMenuList.Count > 0)
+                                                    {
+                                                        <li class="nav-item dropdown">
+                                                            <a href="#" class="nav-link dropdown-toggle" id="@item.MenuId" data-toggle="dropdown" data-hover="dropdown" aria-haspopup="true" aria-expanded="false">@item.Title</a>
+                                                            <div class="dropdown-menu" aria-labelledby="@item.MenuId">
+                                                                @foreach (var sitem in SubMenuList)
+                                                                {
+                                                                    <a class="dropdown-item" href="@(AbsPath + sitem.MeneURL)">@sitem.Title</a>
+                                                                }
+                                                            </div>
+                                                        </li>
+
+                                                    }
+                                                    else
+                                                    {
+                                                        <li><a href="@(AbsPath +item.MeneURL)">@item.Title</a></li>
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    <li><a href="@Model.HomeUrl">Home</a></li>
+                                    <li><a href="@Url.Content(AbsPath + "/BookingSystem/BookingSystemStep1_NBS")">Book Online</a> </li>
+                                    <li><a href="@Model.StoreUrl">Lessons Packges</a> </li>
+                                    <li><a href="@Model.StoreUrl">Gift Cards</a> </li>
+                                }
+
+                            </ul>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    }
+</header>
+
+@*Commented Models As We not using them right now*@
+@*
+    @Html.Partial("~/Views/Home/_HeaderModels.cshtml", Model)
+*@
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.dropdown').hover(function () {
+            $(this).addClass("show");
+            $(this).find(".dropdown-toggle").attr("aria-expanded", "true");
+            $(this).find(".dropdown-menu").addClass("show");
+        }, function () {
+            $(this).removeClass("show");
+            $(this).find(".dropdown-toggle").attr("aria-expanded", "true");
+            $(this).find(".dropdown-menu").removeClass("show");
+        });
+    });
+</script>

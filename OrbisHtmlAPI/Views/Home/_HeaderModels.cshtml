@@ -1,0 +1,432 @@
+﻿@model DataAccess.Models.CommonModel
+@{
+
+}
+
+<div class="modal fade pay-model lvnotes" id="changePasswordModal" tabindex="-1" role="dialog" aria-hidden="true" style="display:none">
+    <div class="modal-dialog" role="document" style="max-width:600px;">
+        <div class="modal-content">
+            <div class="modal-body ficls">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <h2 class="mb-3">CHNAGE PASSWORD</h2>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label class="" for="">Old Password:</label>
+                            <div class="">
+                                <input type="password" class="form-control" id="txtOldPassword">
+                            </div>
+                            <label class="" for="">New Password:</label>
+                            <div class="">
+                                <input type="password" class="form-control" id="txtNewPassword">
+                            </div>
+                            <div class="col-md-12 fbtn">
+                                <a class="btn btn_side" href="#" onclick="SavePasswordChange(); return false;">Save</a>
+                                <a class="btn btn_side" href="#" data-dismiss="modal" aria-label="Close">Cancel</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade pay-model lvnotes" id="deleteAccountModal" tabindex="-1" role="dialog" aria-hidden="true" style="display:none">
+    <div class="modal-dialog" role="document" style="max-width:600px;">
+        <div class="modal-content">
+            <div class="modal-body ficls">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <h6 class="mb-3">Are you sure you want to remove your account?</h6>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="col-md-12 fbtn">
+                            <a class="btn btn_side" href="#" data-dismiss="modal" onclick="DeleteAccount(); return false;">Continue</a>
+                            <a class="btn btn_side" href="#" data-dismiss="modal" aria-label="Close">Cancel</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade pay-model lvnotes" id="updateAddressModal" tabindex="-1" role="dialog" aria-hidden="true" style="display:none">
+    <div class="modal-dialog" role="document" style="max-width:600px;">
+        <div class="modal-content">
+            <div class="modal-body ficls">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <h2 class="mb-3">UPDATE BILLING ADDRESS</h2>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label class="" for="">Billing Address Line 1:</label>
+                            <div class="">
+                                <input type="text" class="form-control" id="txtBillingAddLine1">
+                            </div>
+                            <label class="" for="">Billing Address Line 2:</label>
+                            <div class="">
+                                <input type="text" class="form-control" id="txtBillingAddLine2">
+                            </div>
+                            <label class="" for="">City:</label>
+                            <div class="">
+                                <input type="text" class="form-control" id="txtCity">
+                            </div>
+                            <label class="" for="">Country:</label>
+                            <div class="">
+                                @*<select class="form-control" id="slctCountry">
+                                    </select>*@
+                                @Html.DropDownListFor(m => m.CurrentUser.Country, Model.CountryList, new { @class = "form-control", id = "slctCountry" })
+                            </div>
+                            @*@if (Model.AcademyRegionId == 1)
+                                {
+                                    <label class="" for="">County:</label>
+                                    <div class="">
+                                        <input type="text" class="form-control" id="txtCountyState">
+                                    </div>
+                                }*@
+                            <label class="" for="">Postal Code:</label>
+                            <div class="">
+                                <input type="text" class="form-control" id="txtZipCode">
+                            </div>
+                            <div class="col-md-12 fbtn">
+                                <a class="btn btn_side" href="#" onclick="SaveBillingAddress(); return false;">Save</a>
+                                <a class="btn btn_side" href="#" data-dismiss="modal" aria-label="Close">Cancel</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade pay-model lvnotes" id="divFbAdd" tabindex="-1" role="dialog" aria-hidden="true" style="display:none">
+    <div class="modal-dialog" role="document" style="max-width:600px;">
+        <div class="modal-content">
+            <div class="modal-body ficls">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <h2 class="mb-3">FACEBOOK CREDENTIALS</h2>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label class="" for=""> Facebook Login:</label>
+                            <div class="">
+                                <input type="text" id="txtFbID" />
+                            </div>
+                            <label class="" for="">Facebook Password:</label>
+                            <div class="">
+                                <input type="password" id="txtFbToken" />
+                            </div>
+                            <div class="col-md-12 fbtn">
+                                <a class="btn btn_side" href="#" data-dismiss="modal" onclick="AddUserFb(); return false;">Save</a>
+                                <a class="btn btn_side" href="#" data-dismiss="modal" aria-label="Close">Cancel</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade pay-model lvnotes" id="divTwitter" tabindex="-1" role="dialog" aria-hidden="true" style="display:none">
+    <div class="modal-dialog" role="document" style="max-width:600px;">
+        <div class="modal-content">
+            <div class="modal-body ficls">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <h2 class="mb-3">TWITTER CREDENTIALS</h2>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label class="" for="">Twitter Login:</label>
+                            <div class="">
+                                <input type="text" id="txtAccToke" />
+                            </div>
+                            <label class="" for="">Twitter Password:</label>
+                            <div class="">
+                                <input type="password" id="txtAccessTokenSec" />
+                            </div>
+                            <div class="col-md-12 fbtn">
+                                <a class="btn btn_side" href="#" data-dismiss="modal" onclick="AddUserTiwitter(); return false;">Save</a>
+                                <a class="btn btn_side" href="#" data-dismiss="modal" aria-label="Close">Cancel</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade pay-model lvnotes" id="uploadProfilePic" tabindex="-1" role="dialog" aria-hidden="true" style="display:none">
+    <div class="modal-dialog" role="document" style="max-width:600px;">
+        <div class="modal-content">
+            <div class="modal-body ficls">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <h2 class="mb-3">PROFILE PHOTOS</h2>
+                    </div>
+                    @using (Html.BeginForm("UpdatePlayerPicture_NBS", "User", FormMethod.Post, new { id = "profImgForm", enctype = "multipart/form-data" }))
+                    {
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label class="" for="">Profile Image:</label>
+                                <div class="">
+                                    <input type="file" id="profileImage" name="profileImage" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="col-md-12 fbtn">
+                                <a class="btn btn_side" href="#" data-dismiss="modal" onclick="$('#profImgForm').submit()">Save</a>
+                                <a class="btn btn_side" href="#" data-dismiss="modal" aria-label="Close">Cancel</a>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade pay-model" id="globalImagesModal" tabindex="-1" role="dialog" aria-hidden="true" style="display:none">
+    <div class="modal-dialog" role="document" style="max-width:662px;">
+        <div class="modal-content">
+            <div class="modal-body ficls">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <h2 class="mb-3">SELECT GLOBAL IMAGES</h2>
+                    </div>
+                    <div class="col-sm-12">
+                        <div id="globalImagesContent" style="overflow:auto">
+
+                        </div>
+                    </div>
+                    <div class="col-md-12 fbtn" style="padding-top:15px">
+                        <a class="btn btn_side" href="#" data-dismiss="modal" aria-label="Close">Cancel</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade pay-model lvnotes" id="updatePersonalDetailsMgr" tabindex="-1" role="dialog" aria-hidden="true" style="display:none">
+    <div class="modal-dialog" role="document" style="max-width:600px;">
+        <div class="modal-content">
+            <div class="modal-body ficls">
+                <div class="row form-group">
+                    <div class="col-md-12">
+                        <h2 class="mb-3">Edit Personal Details</h2>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="" for="">First Name:</label>
+                        <div class="">
+                            <input type="text" class="form-control" id="txtEditPersonalDetailsFirstName" value="@(string.IsNullOrEmpty(Model.CurrentUser.firstName) ? "" : Model.CurrentUser.firstName)">
+                        </div>
+                        <label class="" for="">Last Name:</label>
+                        <div class="">
+                            <input type="text" class="form-control" id="txtEditPersonalDetailsLastName" value="@(string.IsNullOrEmpty(Model.CurrentUser.Lastname) ? "" : Model.CurrentUser.Lastname )">
+                        </div>
+                        <label class="" for="">Date of Birth:</label>
+                        <div class="">
+                            <input type="text" class="form-control" id="txtEditPersonalDetailsDOB" value="@(Model.CurrentUser.DateofBirth != "" ? Model.CurrentUser.DateofBirth.Substring(0, 8) : "")">
+                        </div>
+                        <script>
+                                $('#txtEditPersonalDetailsDOB').datepicker({
+                                    uiLibrary: 'bootstrap4',
+                                    iconsLibrary: 'fontawesome',
+                                    format: '@Model.DateFormat.ToString().ToLower()'
+                                });
+                        </script>
+                        <label class="" for="">Address Line 1:</label>
+                        <div class="">
+                            <input type="text" class="form-control" id="txtEditPersonalDetailsAddressLine1" value="@(string.IsNullOrEmpty(Model.CurrentUser.AddressLine1) ? "" : Model.CurrentUser.AddressLine1)">
+                        </div>
+                        <label class="" for="">Address Line 2:</label>
+                        <div class="">
+                            <input type="text" class="form-control" id="txtEditPersonalDetailsAddressLine2" value="@(string.IsNullOrEmpty(Model.CurrentUser.AddressLine2) ? "" : Model.CurrentUser.AddressLine2)">
+                        </div>
+                        <label class="" for="">City:</label>
+                        <div class="">
+                            <input type="text" class="form-control" id="txtEditPersonalDetailsCity" value="@(string.IsNullOrEmpty(Model.CurrentUser.City) ? "" : Model.CurrentUser.City)">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="" for="">Country:</label>
+                        <div class="">
+                            @*<select class="form-control" id="EditPersonalDetailsDropDownCountry"></select>*@
+                            @Html.DropDownListFor(m => m.CurrentUser.Country, Model.CountryList, new { @class = "form-control", id = "EditPersonalDetailsDropDownCountry" })
+                        </div>
+                        <label class="" for="">Email:</label>
+                        <div class="">
+                            <input type="text" class="form-control" id="txtEditPersonalEmail" value="@Model.CurrentUser.PersonalEmail">
+                        </div>
+                        <label class="" for="">Mobile:</label>
+                        <div class="">
+                            <input type="text" class="form-control" id="txtEditPersonalMobile" value="@Model.CurrentUser.Mobile">
+                        </div>
+                        <label class="" for="">Club Telephone:</label>
+                        <div class="">
+                            <input type="text" class="form-control" id="txtEditPersonalTelephone" value="@Model.CurrentUser.Mobile">
+                        </div>
+                        @if (Model.UserRoleId > 0 && Model.UserRoleId != 6)
+                        {
+                            <label class="" for="">Medical History:</label>
+                            <div class="">
+                                <input type="text" class="form-control" id="txtEditPersonalMedicalHistroy" value="@Model.CurrentUser.MedicalIssues">
+                            </div>
+                        }
+                    </div>
+                    <div class="col-md-12 fbtn">
+                        <a class="btn btn_side" href="#" onclick="SavePersonalDetails(); return false;">Save</a>
+                        <a class="btn btn_side" href="#" data-dismiss="modal" aria-label="Close">Cancel</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade pay-model lvnotes" id="divSaveGiftCard" tabindex="-1" role="dialog" aria-hidden="true" style="display:none">
+    <div class="modal-dialog" role="document" style="max-width:600px;">
+        <div class="modal-content">
+            <div class="modal-body ficls">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <h2 class="mb-3">Save Gift Card</h2>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label class="" for="">Gift Card Code:</label>
+                            <div class="">
+                                <input type="text" id="txtGiftCardCodeH" name="txtGiftCardCodeH">
+                            </div>
+                            <div class="col-md-12 fbtn">
+                                <a class="btn btn_side" href="#" data-dismiss="modal" onclick="SaveUserGiftCard(@Model.CurrentUser.Userid); return false;">Save</a>
+                                <a class="btn btn_side" href="#" data-dismiss="modal" aria-label="Close">Cancel</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade pay-model lvnotes" id="divRescheduleHourPopup" tabindex="-1" role="dialog" aria-hidden="true" style="display:none">
+    <div class="modal-dialog" role="document" style="max-width:600px;">
+        <div class="modal-content">
+            <div class="modal-body ficls">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <h2 class="mb-3">RESCHEDULE HOUR PROPERTY</h2>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label class="" for="">Hours:</label>
+                            <div class="">
+                                <input type="text" id="Duration" class="form-control" name="Duration" value="@Model.RescheduleHourLimit">
+                            </div>
+                            <div class="col-md-12 fbtn">
+                                <a class="btn btn_side" href="#" data-dismiss="modal" onclick="UpdateRescheduleHourProperty(); return false;">Save</a>
+                                <a class="btn btn_side" href="#" data-dismiss="modal" aria-label="Close">Cancel</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade pay-model lvnotes" id="divAddReminder" tabindex="-1" role="dialog" aria-hidden="true" style="display:none">
+    <div class="modal-dialog" role="document" style="max-width:600px;">
+        <div class="modal-content">
+            <div class="modal-body ficls">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <h2 class="mb-3">REMINDER</h2>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label class="" for="">Duration:</label>
+                            <div class="">
+                                <select id="ddlReminderDuration">
+                                    <option value="0">Select Reminder Duration</option>
+                                    <option value="24">24hrs</option>
+                                    <option value="48">48hrs</option>
+                                </select>
+                            </div>
+                            <label class="" for="">Type:</label>
+                            <div class="">
+                                <select id="ddlReminderType" class="ddlnormal">
+                                    <option value="0">Select Reminder Type</option>
+                                    <option value="1">Email (Available)</option>
+                                    <option value="2">SMS</option>
+                                    <option value="3">Both</option>
+                                </select>
+                            </div>
+                            <label class="" for="">Active:</label>
+                            <div class="">
+                                <input type="checkbox" id="cbReminderActive" />
+                                <input id='hfReminderId' type="hidden" />
+                            </div>
+                            <div class="col-md-12 fbtn">
+                                <a class="btn btn_side" href="#" data-dismiss="modal" onclick="SaveReminder(); return false;">Save</a>
+                                <a class="btn btn_side" href="#" data-dismiss="modal" aria-label="Close">Cancel</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade pay-model lvnotes" id="divLoggedInAccounts" tabindex="-1" role="dialog" aria-hidden="true" style="display:none">
+    <div class="modal-dialog" role="document" style="max-width:600px;">
+        <div class="modal-content">
+            <div class="modal-body ficls">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <h2 class="mb-3">LOGGED IN ACCOUNTS</h2>
+                    </div>
+                    <div class="col-sm-12">
+                        @using (Html.BeginForm("LoginMyAccount", "Login", FormMethod.Post, new { enctype = "multipart/form-data", id = "LoginMyAccount" }))
+                        {
+                            <div class="form-group">
+                                <div id="divAccountsData">
+                                </div>
+                                @Html.Hidden("AccountUserId")
+                                <input id="AccountUserId" type="text" style="display: none" />
+                                <div class="col-md-12 fbtn">
+                                    <a class="btn btn_side" href="#" data-dismiss="modal" aria-label="Close">Cancel</a>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*<script type="text/javascript">
+    $(function() {
+        $(".dropdown").hover(function () {
+            $(this).addClass("show");
+            $(this).find(".dropdown-toggle").attr("aria-expanded", "true");
+            $(this).find(".dropdown-menu").addClass("show");
+        }, function () {
+                $(this).removeClass("show");
+                $(this).find(".dropdown-toggle").attr("aria-expanded", "true");
+                $(this).find(".dropdown-menu").removeClass("show");
+        });
+    });
+</script>*@
+@*<script>
+    $(document).ready(function () {
+        $.get('/Home/GetPlayerCountryList_NBS', function (data) {
+            $("#slctCountry").html(data);
+            $("#EditPersonalDetailsDropDownCountry").html(data);
+            $("#EditPersonalDetailsDropDownCountry").val(@Model.CurrentUser.Country);
+        });
+    });
+</script>
+<script src="~/Scripts/Common/Common.js"></script>*@
